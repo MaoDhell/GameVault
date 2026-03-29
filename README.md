@@ -1,9 +1,9 @@
 # GameVault - Video Game Store App
 ---
 ##### Student Information
-**Full Name**: Laura D. Escobar Ruiz - Laura V. Uribe Franco
-**Course**: Desarrollo Móvil
-**Project Name**: GameVault
+**Full Name**: Laura D. Escobar Ruiz - Laura V. Uribe Franco  
+**Course**: Desarrollo Móvil  
+**Project Name**: GameVault  
 
 ---
 
