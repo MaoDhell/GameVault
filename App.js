@@ -5,6 +5,7 @@ import TabNavigator from './src/Navigation/TabNavigator';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  
 
   return (
     <SafeAreaProvider>

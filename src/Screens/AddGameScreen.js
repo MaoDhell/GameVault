@@ -1,10 +1,10 @@
 import react, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View,Text,TextInput,Touchable,TouchableOpacity, KeyboardAvoidingView,ScrollView,Alert, StyleSheet } from 'react-native';
+import { View,Text,TextInput,Platform,TouchableOpacity, KeyboardAvoidingView,ScrollView,Alert } from 'react-native';
 
-const AddGameScreen = ({navigation, route}) => {
+import styles from '../Styles/AddGameStyles';
 
-    const {} = route.params;
+const AddGameScreen = ({navigation}) => {
 
     //states for the form fields
     const [title, setTitle]= react.useState('');
@@ -16,78 +16,132 @@ const AddGameScreen = ({navigation, route}) => {
 
     const [isFormValid, setIsFormValid]= react.useState(false);
 
-    //validate the form fields and enabled the button when the form is valid
+    //validate the form fields and enable the button when the form is valid
     useEffect(()=>{
-        if(!title.trim() && !description.trim() && !price.trim()){
-            Alert.alert('Campos requeridos','Por favor ingrese el titulo, descripcion y precio del juego');
+        if(!title.trim() || !description.trim() || !price.trim()){
+            setIsFormValid(false);
+            return;
+        } 
+        if (isNaN(price) || parseFloat(price) <= 0){
             setIsFormValid(false);
             return;
         }
         setIsFormValid(true);
-    });
+    }, [title, description, price]);
 
     //Handle save - save and navigate to the game list screen
-    const handlesave=()=>{
+    const handleSave=()=>{
+        if(!title.trim() || !description.trim() || !price.trim()){
+            Alert.alert('Campos requeridos','Por favor ingrese el titulo, descripcion y precio del juego');
+            return;
+        }
+        if (!isNaN(price) && parseFloat(price) <= 0){
+            Alert.alert('Precio inválido','Por favor ingrese un precio válido');
+            return;
+        }
         const newGame={
             title,
             description,
             genre,
             platform,
             ageRating,
-            price
+            price:parseFloat(price)
         };
-        navigation.navigate('GameListScreen',{newGame})
+
+        //Sumary of the new game to show in an alert before navigating to the game list screen
+        const summary =`
+            Título: ${newGame.title}
+            Descripción: ${newGame.description}
+            Género: ${newGame.genre}
+            Plataforma: ${newGame.platform}
+            Clasificación por edad: ${newGame.ageRating}
+            Precio: $${newGame.price}
+        `;
+
+        Alert.alert('Juego agregado', summary, [{
+            text: 'OK',
+            onPress: () => {
+                navigation.navigate('GameList', { newGame });
+                handleClear(); 
+            },
+        }])
+    };
+
+    //Handle clear - clear the form fields
+    const  handleClear=()=>{
+        setTitle('');
+        setDescription('');
+        setGenre('');
+        setPlatform('');
+        setAgeRating('');
+        setPrice('');
     }
 
     return(
-        <SafeAreaView>
-            <KeyboardAvoidingView>
-                <ScrollView>
-                    <Text>Agregar nuevo juego</Text>
-
+        <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}> 
+                <ScrollView style={styles.scrollContent}>
+                    <View>
+                        <Text style={styles.titleText}>Agregar nuevo Juego</Text>
+                    </View>
                     <TextInput
+                        style={styles.formInput}
                         placeholder='Titulo del juego'
-                        placeholderTextColor='#8b7694'
+                        placeholderTextColor='#8b769477'
                         value={title}
                         onChangeText={setTitle}
                     />
                     <TextInput
-                        placeholder='Descripcion del juego'
-                        placeholderTextColor='#8b7694'
+                        style={styles.formInput}
+                        placeholder='Descripción del juego'
+                        placeholderTextColor='#8b769477'
                         value={description}
                         onChangeText={setDescription}
+                        multiline
                     />
                     <TextInput
-                        placeholder='Genero'
-                        placeholderTextColor='#8b7694'
+                        style={styles.formInput}
+                        placeholder='Género'
+                        placeholderTextColor='#8b769477'
                         value={genre}
                         onChangeText={setGenre}
                     />
                     <TextInput
+                        style={styles.formInput}
                         placeholder='Plataforma'
-                        placeholderTextColor='#8b7694'
+                        placeholderTextColor='#8b769477'
                         value={platform}
                         onChangeText={setPlatform}
                     />
                     <TextInput
-                        placeholder='Clasificacion por edad'
-                        placeholderTextColor='#8b7694'
+                        style={styles.formInput}
+                        placeholder='Clasificación por edad'
+                        placeholderTextColor='#8b769477'
                         value={ageRating}
                         onChangeText={setAgeRating}
                     />
                     <TextInput
+                        style={styles.formInput}
                         placeholder='Precio'
-                        placeholderTextColor='#8b7694'
+                        placeholderTextColor='#8b769477'
                         value={price}
                         onChangeText={setPrice}
                         keyboardType='numeric'
                     />
 
                     <TouchableOpacity
-                        onPress={handlesave}
+                        onPress={handleSave}
                         disabled={!isFormValid}
+                        style={isFormValid ? styles.buttonAdd : styles.buttonDisabled}
                     >
-                        <Text>Guardar</Text>
+                        <Text style={styles.textButton}>Guardar</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.buttonClear}
+                        onPress={handleClear}
+                    >
+                        <Text style={styles.textButton}>Limpiar campos</Text>
                     </TouchableOpacity>
 
                 </ScrollView>

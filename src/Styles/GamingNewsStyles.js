@@ -1,0 +1,118 @@
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width, height } = Dimensions.get('window');
+
+export default StyleSheet.create({
+    container:{
+        flex: 1,
+        width: width * 0.9,
+        alignSelf: 'center',
+        backgroundColor: '#ffffff',
+    },
+    generalContainer:{
+        flex: 1,
+        backgroundColor: '#ffffff',
+    },
+    contentWrapper: {
+        flex: 1,
+        alignItems: 'center',
+        paddingBottom: 10,
+    },
+    statusText: {
+        color: '#8b7694',
+        marginTop: 20, 
+        fontSize: 14,
+        fontWeight: '600',
+        textAlign: 'center',
+        marginBottom: 10,
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+    },
+     titleText:{
+        fontSize: 26,
+        fontWeight: 'bold',
+        justifyContent: 'flex-end',
+        textAlign: 'center',
+        marginBottom: 10,
+        color: '#ffffff',
+        width: width * 0.9,
+        lineHeight: 30,
+        backgroundColor: '#1c1a1a3f',
+        padding:20,
+        alignSelf: 'center',
+    },
+    newsImage: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignContent: 'center',
+        resizeMode: 'cover',
+    },
+    imageHeaderContainer: {
+        width: '100%',
+        height: height * 0.6,
+        position: 'relative',
+        justifyContent: 'flex-end',
+    },
+    card: {
+        width: '100%',
+        backgroundColor: 'transparent',
+        overflow: 'hidden',
+    },
+    categoryBadge: {
+        backgroundColor: '#da628289',
+        color: '#ffffff',
+        paddingHorizontal: 20,
+        paddingVertical: 4,
+        borderRadius: 20,
+        alignSelf: 'flex-end',
+        fontSize: 12,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: '#da6282',
+        textTransform: 'uppercase',
+    },
+    textContainer: {
+        padding: 20,
+        color: '#4f4f4f',
+        lineHeight: 22,
+        textAlign: 'justify',
+    },
+    descriptionContainer: {
+        padding: 20,
+    },
+    button:{
+        borderRadius: 15,
+        backgroundColor: '#da6282',
+        paddingVertical: 12,
+        paddingHorizontal: 25,
+        alignItems: 'center',
+        elevation: 2,
+        marginTop: 15,
+        width: width * 0.4,
+        minWidth: 110,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: width * 0.9,
+        marginTop: 25,
+        paddingBottom: 20,
+    },
+    textButton:{
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    headerTitle:{
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#da6282',
+        alignSelf: 'flex-start',
+        marginLeft: width * 0.05,
+        textTransform: 'uppercase',
+        letterSpacing: 2,
+        marginBottom: 10,
+    },
+
+});

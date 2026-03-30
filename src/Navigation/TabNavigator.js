@@ -13,7 +13,7 @@ const TabNavigator = () => {
     return(
         <NavigationContainer>
             <Tab.Navigator
-                screenOption={({route})=>({
+                screenOptions={({route})=>({
                     tabBarIcon:({focused,size,color})=>{
                         let iconName;
                         if(route.name === 'GameList'){
@@ -23,7 +23,7 @@ const TabNavigator = () => {
                         }else if(route.name === 'GamingNews'){
                             iconName = focused ? 'newspaper' : 'newspaper-outline';
                         }
-                        return <Ionicons name={iconName} size={size} color={color}/>
+                        return <Ionicons name={iconName} size={size} color={color} />;
                     },
                     tabBarActiveTintColor: '#ff4784',
                     tabBarInactiveTintColor: 'gray',
@@ -31,11 +31,11 @@ const TabNavigator = () => {
                 })}
             >
 
-                <Tab.Screen 
+                {/* <Tab.Screen 
                     name='GameList'     
                     component={GameListScreen} 
                     options={{title:'GameVault'}}
-                />
+                /> */}
                 <Tab.Screen 
                     name="AddGame" 
                     component={AddGameScreen} 
