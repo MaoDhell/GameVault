@@ -26,26 +26,27 @@ const GamingNewsScreen = () => {
 
     //Change the news every 5 seconds and loop back to the first news when reaching the end of the array
     //and clean up the interval on unmount to prevent memory leaks
+    //Current news index to the console whenever it changes for debugging purposes
+    //and show the current news in the Ui
+    const [statusMessage, setStatusMessage] = React.useState('');
+
+    //show the current news index in the status message and log it to the console whenever it changes for debugging purposes
+    useEffect(() => {
+        const message = `Noticia ${currentIndex + 1} de ${news.length}`;
+        setStatusMessage(message);
+        console.log(`Now showing news ${currentIndex + 1}`);
+    }, [currentIndex]);
+
+    //Set up an interval to change the news every 5 seconds and loop back to the first news when reaching the end of the array
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % news.length);
         }, 5000);
 
-        //Clean up the interval on unmount
-        return () => clearInterval(intervalId);
-
-    }, []);
-
-    //Current news index to the console whenever it changes for debugging purposes
-    //and show the current news in the Ui
-    const [statusMessage, setStatusMessage] = React.useState('');
-
-    useEffect(() => {
-        const message = `Mostrando noticia ${currentIndex + 1} de ${news.length}`;
-        console.log(`Now showing news ${currentIndex + 1}`);
-
-        setStatusMessage(message);
-
+        return () => {
+            console.log('Cleaning up interval...');
+            clearInterval(intervalId);
+        };
     }, [currentIndex]);
 
     // Next and Back button handlers to manually change the news

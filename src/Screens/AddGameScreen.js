@@ -7,6 +7,7 @@ import styles from '../Styles/AddGameStyles';
 const AddGameScreen = ({navigation}) => {
 
     //states for the form fields
+    const [emoji, setEmoji]= react.useState('');
     const [title, setTitle]= react.useState('');
     const [description, setDescription]= react.useState('');
     const [genre, setGenre]= react.useState('');
@@ -40,6 +41,7 @@ const AddGameScreen = ({navigation}) => {
             return;
         }
         const newGame={
+            emoji,
             title,
             description,
             genre,
@@ -50,6 +52,7 @@ const AddGameScreen = ({navigation}) => {
 
         //Sumary of the new game to show in an alert before navigating to the game list screen
         const summary =`
+            emoji: ${newGame.emoji}
             Título: ${newGame.title}
             Descripción: ${newGame.description}
             Género: ${newGame.genre}
@@ -58,17 +61,19 @@ const AddGameScreen = ({navigation}) => {
             Precio: $${newGame.price}
         `;
 
-        Alert.alert('Juego agregado', summary, [{
-            text: 'OK',
-            onPress: () => {
-                navigation.navigate('GameList', { newGame });
-                handleClear(); 
-            },
-        }])
+        Alert.alert('Juego agregado', summary)
+        // Alert.alert('Juego agregado', summary, [{
+        //     text: 'OK',
+        //     onPress: () => {
+        //         navigation.navigate('GameList', { newGame });
+        //         handleClear(); 
+        //     },
+        // }])
     };
 
     //Handle clear - clear the form fields
     const  handleClear=()=>{
+        setEmoji('');
         setTitle('');
         setDescription('');
         setGenre('');
@@ -90,6 +95,17 @@ const AddGameScreen = ({navigation}) => {
                         placeholderTextColor='#8b769477'
                         value={title}
                         onChangeText={setTitle}
+                    />
+                    <TextInput
+                        style={styles.formInput}
+                        placeholder='Emoji'
+                        placeholderTextColor='#8b769477'
+                        value={emoji}
+                        onChangeText={setEmoji}
+                        maxLength={2}
+                        autoCorrect={false}          
+                        autoCapitalize="none"        
+                        keyboardType="default"
                     />
                     <TextInput
                         style={styles.formInput}
