@@ -42,7 +42,7 @@ const TabNavigator = () => {
             <Tab.Screen 
                 name="AddGame" 
                 component={AddGameScreen} 
-               options={{title:'Agregar juego'}}
+                options={{title:'Agregar juego'}}
             />
             <Tab.Screen 
                 name="GamingNews" 

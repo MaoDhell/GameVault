@@ -11,7 +11,7 @@ const StackNavigator = () => {
       <Stack.Screen 
         name="GameList" 
         component={GameListScreen} 
-        options={{ title: 'Lista de Videojuegos' }} 
+        options={{ title: 'Lista de Videojuegos', headerTintColor: '#ff4784' }} 
       />
       <Stack.Screen 
         name="GameDetail" 
